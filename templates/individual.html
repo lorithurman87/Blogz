@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3> You're viewing all posts by this author</h3>
+
+
+    
+        {% if owner_id == username  %}
+        {% for post in posts %}
+
+            <h2><a href="./blog?id={{post.id}}">{{post.title}}</a> </h2> 
+            <p>{{post.body}}</p>  
+            <p>Written by: {{post.owner.username}}</p>
+        {% endfor %}
+
+        {% endif %}
+   
+
+{% endblock %}

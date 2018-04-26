@@ -9,8 +9,9 @@
                 {% for post in posts %}
                  <h2><a href="./blog?id={{post.id}}">{{post.title}}</a> </h2> 
                     <p>{{post.body}}</p>
-                   <!--<form method="POST" style="display:inline-block;">
-                        <input type="text" name="post-id" value="{{post.id}}" /> -->
+                     
+                    <p>Written by: <a href="./blog?user_id={{post.owner_id}}">{{post.owner.username}}</a></p>  
+ 
                     
                     </form>  
                 
@@ -18,3 +19,5 @@
             
     {% endif %}
 {% endblock %}
+
+

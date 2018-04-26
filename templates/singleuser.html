@@ -1,12 +1,31 @@
 {% extends "base.html" %}
-
 {% block content %}
+   
+   <h3>You're viewing all posts by the requested user.</h3>
 
+   {% if blogs|length == 0 %}
+     <p>No blogs yet</p>
+   {% else %}
+     {% for blog in blogs|reverse %}
 
+       {% for user in users %}
+         {% if user_id == blog.owner_id %}
+         {% for post in posts %}
+                 <h2><a href="./blog?id={{post.id}}">{{post.title}}</a> </h2> 
+                    <p>{{post.body}}</p>  
+                    <p>Written by: <a href="./blog?user_id={{post.owner}}">{{post.owner.username}}</a></p>
+                    <!--<p>Written by: <a href="./blog?user_id={{user.id}}">{{post.owner.username}}</a></p>  -->
+                
+                {% endfor %}
+           <hr />
+           <!--<h2><a href='./blog?id={{blog.id}}'>{{blog.title}}</a></h2>
+           <p>{{blog.body}}</p> -->
+         {% endif %}
 
+       {% endfor %}
 
+     {% endfor %}
 
-
-
-
+   {% endif %}
+   <hr />
 {% endblock %}
