@@ -2,6 +2,7 @@
 {% block content %}
    
    <h3>You're viewing all users.</h3>
+   <hr />
 
    {% if users|length == 0 %}
      <p>No users yet</p>
@@ -12,5 +13,5 @@
      {% endfor %}
 
    {% endif %}
-   <hr />
+   
 {% endblock %}

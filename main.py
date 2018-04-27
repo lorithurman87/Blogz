@@ -39,12 +39,12 @@ class User(db.Model):
 
 @app.before_request
 def require_login():
-    allowed_routes = ['login', 'signup', 'blog_post', 'blog', 'logout','home', 'all_users']
+    allowed_routes = ['login', 'signup', 'blog_post', 'blog', 'logout','home', 'all_users']#'index']
     if 'username' not in session:
         if request.endpoint not in allowed_routes:
             return redirect('/login')
     else:
-        if request.endpoint not in allowed_routes:
+        if request.endpoint not in allowed_routes and 'username' not in session:
             return redirect('/blog')
 
 
@@ -82,14 +82,17 @@ def login():
 
         if not user and username != "":
             error = "user does not exist"
-            return redirect('/login', error = error)
+            #return redirect('/login', error = error)
+            return render_template('login.html', error = error)
 
         if not user and username == "":
             error = "user does not exist"
-            return redirect('/login', error = error)
+            #return redirect('/login', error = error)
+            return render_template('login.html', error = error)
         else:
             error = "user does not exist"
-            return redirect('/login', error)
+            #return redirect('/login', error)
+            return render_template('login.html', error = error)
     return render_template('login.html')
 
 
@@ -174,10 +177,11 @@ def index():
             return (has_an_error(title, body, error_2))
         else:
             db.session.add(new_post)
-            print(new_post)
+            #print(new_post)
             db.session.commit()
-            posts = Post.query.filter_by(id=User.id).all()
-            return render_template('blog.html', title="Blog!", posts=posts)
+            #posts = Post.query.all()
+            view = str(new_post.id)
+            return redirect('/blog?id='+ view)#, title="Blog!", posts=posts)
             
 
     posts = Post.query.all()
